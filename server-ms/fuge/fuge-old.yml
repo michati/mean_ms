@@ -1,0 +1,58 @@
+fuge_global:
+  tail: true
+  monitor: false
+  auto_generate_environment: false
+  monitor_excludes:
+    - '**/node_modules/**'
+    - '**/.git/**'
+    - '**/*.log'
+  environment:
+    - BASES=127.0.0.1:39000,127.0.0.1:39001
+    - HOST=127.0.0.1
+mongoDB:
+  type: process
+  path: /usr/local/bin/mongod
+  run: '/usr/local/bin/mongod --dbpath /Users/michati/Development/Microservices/mean-ms/data/db'
+base0:
+  type: node
+  path: ./base
+  run: 'node base.js'
+  ports:
+    - main=39000
+  environment:
+    - TAG=base0
+    - PORT=39000
+base1:
+  type: node
+  path: ./base
+  run: 'node base.js'
+  ports:
+    - main=39001
+  environment:
+    - TAG=base1
+    - PORT=39001
+dbConnect:
+  type: node
+  path: ./db-connect
+  run: node 'db-connect-service.js'
+  ports:
+    - main=27017
+  environment:
+    - TAG=dbConnect
+    - PORT=27017
+api:
+  type: node
+  path: ./user-api
+  run: node 'api-service.js'
+  ports:
+    - main=8001
+  environment:
+    - PORT=0
+schema:
+  type: node
+  path: ./schema
+  run: node 'mongo-schema-service.js'
+entry_mongo:
+  type: node
+  path: ./entry-mongo
+  run: node 'entry-mongo-service.js'

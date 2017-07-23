@@ -1,0 +1,68 @@
+fuge_global:
+  tail: true
+  monitor: true
+  auto_generate_environment: false
+  monitor_excludes:
+    - '**/node_modules/**'
+    - '**/.git/**'
+    - '**/*.log'
+  environment:
+    - BASES=127.0.0.1:39000,127.0.0.1:39001
+    - HOST=127.0.0.1
+base0:
+  type: node
+  path: ./base
+  run: 'node base.js'
+  ports:
+    - main=39000
+  environment:
+    - TAG=base0
+    - PORT=39000
+base1:
+  type: node
+  path: ./base
+  run: 'node base.js'
+  ports:
+    - main=39001
+  environment:
+    - TAG=base1
+    - PORT=39001
+api:
+  type: node
+  path: ./registration_api
+  run: 'node start.js'
+  ports:
+    - main=8000
+  environment:
+    - TAG=registration_api
+    - PORT=8000
+    - BASES=127.0.0.1:39000,127.0.0.1:39001
+    - HOST=127.0.0.1
+    - USE_TRANSPORT=true
+    - TRANSPORT_TYPE=tcp
+    - TRANSPORT_PORT=4001
+    - TRANSPORT_HOST=127.0.0.1
+ch:
+  type: node
+  path: ./check_mongo
+  run: 'node check_mongo_service.js'
+  ports:
+    - main=27017
+  environment:
+    - TAG=check_mongo
+    - MONGO_PORT=27017
+    - BASES=127.0.0.1:39000,127.0.0.1:39001
+    - HOST=127.0.0.1
+    - MONGO_DB=corp_rolo
+seed:
+  type: node
+  path: ./seed_mongo
+  run: 'node seed_mongo_service.js'
+  ports:
+    - main=27017
+  environment:
+    - TAG=seed_mongo
+    - MONGO_PORT=27017
+    - BASES=127.0.0.1:39000,127.0.0.1:39001
+    - HOST=127.0.0.1
+    - MONGO_DB=corp_rolo

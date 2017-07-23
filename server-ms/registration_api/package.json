@@ -1,0 +1,33 @@
+{
+  "name": "new-micro",
+  "version": "0.0.1",
+  "description": "Microservice application using Seneca",
+  "author": "michati",
+  "scripts": {
+    "test": "npm run test-setup && lab --pattern test -r console -v -L -m 10000",
+    "start": "node ./start.js"
+  },
+  "dependencies": {
+    "async": "^2.0.1",
+    "body-parser": "^1.17.2",
+    "dotenv": "^2.0.0",
+    "eraro": "^0.4.1",
+    "express": "^4.14.0",
+    "jsonic": "^0.2.2",
+    "jsonwebtoken": "^7.1.7",
+    "lodash": "^4.17.4",
+    "moment": "^2.14.1",
+    "mongoose": "^4.11.3",
+    "mpromise": "^0.5.5",
+    "seneca": "^3.4.1",
+    "seneca-auth": "^1.1.0",
+    "seneca-balance-client": "^0.6.1",
+    "seneca-demo-logger": "^0.1.0",
+    "seneca-entity": "^1.2.0",
+    "seneca-mesh": "^0.9.0",
+    "seneca-user": "^1.1.0",
+    "seneca-web": "^2.1.0",
+    "seneca-web-adapter-express": "^1.0.2",
+    "sneeze": "^0.7.1"
+  }
+}
