@@ -61,7 +61,7 @@ seed:
   ports:
     - main=27017
   environment:
-    - TAG=seed_mongo
+    - SEED_TAG=seed_mongo
     - MONGO_PORT=27017
     - BASES=127.0.0.1:39000,127.0.0.1:39001
     - HOST=127.0.0.1

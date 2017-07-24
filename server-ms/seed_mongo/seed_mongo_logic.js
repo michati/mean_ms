@@ -18,11 +18,12 @@ module.exports = function seed_mongo (options) {
 
     seneca.log.info('URI: ' + uri + '\n'); 
 
-    Mongoose.connect(uri, {auto_reconnect: true, native_parser: true}, function (err, db) {
+    var db = Mongoose.connect(uri, {auto_reconnect: false, native_parser: false}, function (err) {
       if (err) {
         return response(null, {ok: false, why: 'Cound not connect to mongo server'});  
       }
-      return response(null, {db: db});
+      require('./schema')
+      return response(null, {ok: true, db: db});
     });
 
     console.log('Leaving GET /getDb...');
@@ -40,6 +41,6 @@ module.exports = function seed_mongo (options) {
     console.log('Leaving GET /getModel...');
   }
 
-  seneca.add('store:seed,cmd:getdb', getDb)
-  seneca.add('store:seed,cmd:getmodel', getModel)
+  //seneca.add('store:seed,cmd:populate', getDb)
+  seneca.add('store:seed,cmd:getmodel', getDb)
 }

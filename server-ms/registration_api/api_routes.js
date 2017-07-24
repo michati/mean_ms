@@ -10,11 +10,17 @@ module.exports = [
     }
   },
   {
-    prefix: '/admin/v1',
+    prefix: '/store/v1',
     pin: 'role:store,cmd:*',
     map: {
       checkDbConnection: {name: 'checkMongoConnection', GET: true, alias: '/check'},
-      seedMongo: {name: 'seedMongoDb', GET: true, alias: '/seed'}
+    }
+  },
+  {
+    prefix: '/store/v1',
+    pin: 'role:store,cmd:*',
+    map: {
+      seedMongo: {name: 'seedDb', GET: true, alias: '/seed'},
     }
   }
 ]

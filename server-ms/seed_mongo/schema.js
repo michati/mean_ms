@@ -13,7 +13,7 @@ var userDataSchema = new Schema({
  
   module.exports = UserSchema;
 
-  var User1 = new UserSchema({
+ /* var User1 = new UserSchema({
     first: "Bob",
     last: "Fubar",
     userId: "bfubar",
@@ -39,4 +39,4 @@ var userDataSchema = new Schema({
     } else {
       console.log('\nUser2 saved');
     } 
-  }); 
+  }); */

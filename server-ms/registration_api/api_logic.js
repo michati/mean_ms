@@ -3,7 +3,7 @@
 module.exports = function api (options) {
   var seneca = this
 
-  function connectToDb (msg, response) {
+  function doesDbExist (msg, response) {
 
     seneca.act('store:check,cmd:exist', function(err,result) {
       if (err) {
@@ -16,11 +16,17 @@ module.exports = function api (options) {
 
   function getAllRegisteredUsers (msg, response) {
 
-    seneca.act('store:check,cmd:exist', function(err,result) {
+    seneca.act('store:seed,cmd:getmodel', function(err,result) {
       if (err) {
         return response(null, {ok: false, why: err})
       }
-      return response(null, {ok: true, result: result})
+      var Model = result.db
+      Model.find({}, function(err, list) {
+        if (err) {
+          return response(null, {ok: false, why: err})
+        }
+        return response(null, {ok: true, result: list})
+      })
     })
 
   }
@@ -36,7 +42,7 @@ module.exports = function api (options) {
 
   }
     
-  seneca.add('role: store, cmd: checkDbConnection', connectToDb)
+  seneca.add('role: store, cmd: checkDbConnection', doesDbExist)
   seneca.add('role: store, cmd: seedMongo', addSeedDataToDb)
 
   seneca.add('role: api, cmd: listAllUsers', getAllRegisteredUsers)

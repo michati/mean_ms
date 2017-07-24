@@ -1,5 +1,6 @@
 var HOST = process.env.HOST || '127.0.0.1'
 var BASES = (process.env.BASES || process.argv[3] || '').split(',')
+var TAG = process.env.SEED_TAG
 var SILENT = true
 
 require('seneca')({
@@ -19,5 +20,5 @@ require('seneca')({
     }
   })
   .ready(function(){
-    console.log(this.id)
+    console.log(this.id+' TAG: '+TAG+' BASES: '+BASES)
   })
